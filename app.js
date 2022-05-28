@@ -1,8 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const routerApi = require('./routes');
-
+const {checkApiKey } = require('./middlewares/authHandler')
 const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler } = require('./middlewares/errorHandler');
+const passport = require('passport')
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -20,21 +21,22 @@ const options = {
   }
 }
 app.use(cors(options));
-
-app.get('/', (req, res) => {
+require('./utils/auth')
+app.get('/', checkApiKey ,(req, res) => {
   res.send('Hola mi server en express');
 });
 
-app.get('/nueva-ruta', (req, res) => {
+app.get('/nueva-ruta', checkApiKey ,(req, res) => {
   res.send('Hola, soy una nueva ruta');
 });
+
+
 
 routerApi(app);
 
 app.use(boomErrorHandler);
 app.use(ormErrorHandler)
 app.use(errorHandler)
-
 
 app.listen(port, () => {
   console.log('Mi port' +  port);
