@@ -32,7 +32,7 @@ const OrderSchema = {
     get() {
       if (this.items && this.items.length > 0) {
         return this.items.reduce((total, item) => {
-          return total + (item.price * item.OrderProduct.amount);
+          return total + (item.price * item.OrderDetail.amount);
         }, 0);
       }
       return 0;
@@ -49,7 +49,7 @@ class Order extends Model {
     });
     this.belongsToMany(models.Product, {
       as: 'items',
-      through: models.OrderProduct,
+      through: models.OrderDetail,
       foreignKey: 'orderId',
       otherKey: 'productId'
     });
