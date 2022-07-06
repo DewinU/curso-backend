@@ -243,7 +243,7 @@ $RECYCLE.BIN/
 #!.yarn/cache
 
 # and uncomment the following lines
- .pnp.*
+# .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/node,windows,macos,linux,react,yarn
 
